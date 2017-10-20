@@ -27,45 +27,38 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
+package org.firstinspires.ftc.teamcode;
+
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.util.Range;
 
 /**
+ * This file contains an example of an iterative (Non-Linear) "OpMode".
+ * An OpMode is a 'program' that runs in either the autonomous or the teleop period of an FTC match.
+ * The names of OpModes appear on the menu of the FTC Driver Station.
+ * When an selection is made from the menu, the corresponding OpMode
+ * class is instantiated on the Robot Controller and executed.
+ *
+ * This particular OpMode just executes a basic Tank Drive Teleop for a two wheeled robot
+ * It includes all the skeletal structure that all iterative OpModes contain.
+ *
  * Use Android Studios to Copy this Class, and Paste it into your team's code folder with a new name.
  * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
  */
 
-@TeleOp(name="Eli can't kill me", group="Iterative Opmode")
-//@Disabled
-public class DwightE_BasicOpMode_Iterative extends OpMode
+@TeleOp(name="Basic: Iterative OpMode", group="Iterative Opmode")
+@Disabled
+public class AutonTest extends OpMode
 {
-    // Declare Motors.
+    // Declare OpMode members.
     private ElapsedTime runtime = new ElapsedTime();
     private DcMotor leftDrive = null;
     private DcMotor rightDrive = null;
-    private DcMotor leftDrive1 = null;
-    private DcMotor rightDrive1 = null;
-    private Servo clampServo1 = null;
-    private Servo clampServo2 = null;
-    private Servo testServo = null;
 
-   // private DcMotor armMotor = null;
-
-    /**
-     * clamp Servos = 180 deg.
-     *
-     * arm Servos = 360 deg
-     * */
-   /* private Servo clampServo1 = null;
-    private Servo clampServo2 = null;
-    private Servo armServo1 = null;
-    private Servo armServo2 = null;
-*/
     /*
      * Code to run ONCE when the driver hits INIT
      */
@@ -73,31 +66,16 @@ public class DwightE_BasicOpMode_Iterative extends OpMode
     public void init() {
         telemetry.addData("Status", "Initialized");
 
-        // Initialize Motors
+        // Initialize the hardware variables. Note that the strings used here as parameters
+        // to 'get' must correspond to the names assigned during the robot configuration
+        // step (using the FTC Robot Controller app on the phone).
         leftDrive  = hardwareMap.get(DcMotor.class, "left_drive");
         rightDrive = hardwareMap.get(DcMotor.class, "right_drive");
-        leftDrive1  = hardwareMap.get(DcMotor.class, "left_drive1");
-        rightDrive1 = hardwareMap.get(DcMotor.class, "right_drive1");
 
-        clampServo1 = hardwareMap.servo.get("armServo1");
-        clampServo2 = hardwareMap.servo.get("armServo2");
-        testServo = hardwareMap.servo.get("backServo");
-
-
-
+        // Most robots need the motor on one side to be reversed to drive forward
+        // Reverse the motor that runs backwards when connected directly to the battery
         leftDrive.setDirection(DcMotor.Direction.FORWARD);
         rightDrive.setDirection(DcMotor.Direction.REVERSE);
-        leftDrive1.setDirection(DcMotor.Direction.FORWARD);
-        rightDrive1.setDirection(DcMotor.Direction.REVERSE);
-
-
-        clampServo1.setDirection(Servo.Direction.FORWARD);
-        clampServo1.setPosition(0);
-        clampServo2.setDirection(Servo.Direction.REVERSE);
-        clampServo2.setPosition(0);
-        testServo.setPosition(0);
-
-
 
         // Tell the driver that initialization is complete.
         telemetry.addData("Status", "Initialized");
@@ -116,7 +94,6 @@ public class DwightE_BasicOpMode_Iterative extends OpMode
     @Override
     public void start() {
         runtime.reset();
-
     }
 
     /*
@@ -127,8 +104,6 @@ public class DwightE_BasicOpMode_Iterative extends OpMode
         // Setup a variable for each drive wheel to save power level for telemetry
         double leftPower;
         double rightPower;
-        //double leftPower1;
-        //double rightPower1;
 
         // Choose to drive using either Tank Mode, or POV Mode
         // Comment out the method that's not used.  The default below is POV.
@@ -137,12 +112,9 @@ public class DwightE_BasicOpMode_Iterative extends OpMode
         // - This uses basic math to combine motions and is easier to drive straight.
         double drive = -gamepad1.left_stick_y;
         double turn  =  gamepad1.right_stick_x;
-        boolean clamp = gamepad2.a;
-        boolean back = gamepad2.b;
         leftPower    = Range.clip(drive + turn, -1.0, 1.0) ;
         rightPower   = Range.clip(drive - turn, -1.0, 1.0) ;
-      //leftPower1    = Range.clip(drive + turn, -1.0, 1.0) ;
-      // rightPower1   = Range.clip(drive - turn, -1.0, 1.0) ;
+
         // Tank Mode uses one stick to control each wheel.
         // - This requires no math, but it is hard to drive forward slowly and keep straight.
         // leftPower  = -gamepad1.left_stick_y ;
@@ -151,30 +123,6 @@ public class DwightE_BasicOpMode_Iterative extends OpMode
         // Send calculated power to wheels
         leftDrive.setPower(leftPower);
         rightDrive.setPower(rightPower);
-        leftDrive1.setPower(leftPower);
-        rightDrive1.setPower(rightPower);
-        if(gamepad2.a)
-        {
-            clampServo1.setPosition(.5);
-            clampServo2.setPosition(.5);
-            // .setPosition --> 0-1
-            //clampServo1.setPosition();
-            // clampServo2.setPosition();
-        } else {
-            clampServo1.setPosition(0.0);
-            clampServo2.setPosition(0.0);
-            telemetry.addData("A is not", "Pressed");
-        }
-        telemetry.update();
-
-        if(gamepad2.b) {
-            testServo.setPosition(.5);
-        } else {
-            testServo.setPosition(0.0);
-            telemetry.addData("B is not", "Pressed");
-        }
-        telemetry.update();
-
 
         // Show the elapsed game time and wheel power.
         telemetry.addData("Status", "Run Time: " + runtime.toString());
