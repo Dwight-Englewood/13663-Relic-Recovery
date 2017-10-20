@@ -139,8 +139,8 @@ public class DwightE_BasicOpMode_Iterative extends OpMode
         double turn  =  gamepad1.right_stick_x;
         boolean clamp = gamepad2.a;
         boolean back = gamepad2.b;
-        leftPower    = Range.clip(drive + turn, -1.0, 1.0) ;
-        rightPower   = Range.clip(drive - turn, -1.0, 1.0) ;
+        leftPower    = Range.clip(drive + turn, -0.75, 0.75) ;
+        rightPower   = Range.clip(drive - turn, -0.75, 0.75) ;
       //leftPower1    = Range.clip(drive + turn, -1.0, 1.0) ;
       // rightPower1   = Range.clip(drive - turn, -1.0, 1.0) ;
         // Tank Mode uses one stick to control each wheel.
