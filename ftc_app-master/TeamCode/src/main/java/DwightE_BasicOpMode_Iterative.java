@@ -79,9 +79,9 @@ public class DwightE_BasicOpMode_Iterative extends OpMode
         leftDrive1  = hardwareMap.get(DcMotor.class, "left_drive1");
         rightDrive1 = hardwareMap.get(DcMotor.class, "right_drive1");
 
-        clampServo1 = hardwareMap.servo.get("armServo1");
-        clampServo2 = hardwareMap.servo.get("armServo2");
-        testServo = hardwareMap.servo.get("backServo");
+        //clampServo1 = hardwareMap.servo.get("armServo1");
+        //clampServo2 = hardwareMap.servo.get("armServo2");
+        //testServo = hardwareMap.servo.get("backServo");
 
 
 
@@ -91,11 +91,11 @@ public class DwightE_BasicOpMode_Iterative extends OpMode
         rightDrive1.setDirection(DcMotor.Direction.REVERSE);
 
 
-        clampServo1.setDirection(Servo.Direction.FORWARD);
-        clampServo1.setPosition(0);
-        clampServo2.setDirection(Servo.Direction.REVERSE);
-        clampServo2.setPosition(0);
-        testServo.setPosition(0);
+    //    clampServo1.setDirection(Servo.Direction.FORWARD);
+     //   clampServo1.setPosition(0);
+       // clampServo2.setDirection(Servo.Direction.REVERSE);
+        //clampServo2.setPosition(0);
+        //testServo.setPosition(0);
 
 
 
@@ -153,7 +153,7 @@ public class DwightE_BasicOpMode_Iterative extends OpMode
         rightDrive.setPower(rightPower);
         leftDrive1.setPower(leftPower);
         rightDrive1.setPower(rightPower);
-        if(gamepad2.a)
+  /*      if(gamepad2.a)
         {
             clampServo1.setPosition(.5);
             clampServo2.setPosition(.5);
@@ -174,7 +174,7 @@ public class DwightE_BasicOpMode_Iterative extends OpMode
             telemetry.addData("B is not", "Pressed");
         }
         telemetry.update();
-
+*/
 
         // Show the elapsed game time and wheel power.
         telemetry.addData("Status", "Run Time: " + runtime.toString());
