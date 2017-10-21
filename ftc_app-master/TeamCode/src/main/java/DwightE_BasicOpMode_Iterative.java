@@ -50,9 +50,13 @@ public class DwightE_BasicOpMode_Iterative extends OpMode
     private DcMotor rightDrive = null;
     private DcMotor leftDrive1 = null;
     private DcMotor rightDrive1 = null;
+    //private DcMotor armJoint = null;
     private Servo clampServo1 = null;
     private Servo clampServo2 = null;
+    private Servo jointServo1 = null;
+    private Servo jointServo2 = null;
     private Servo testServo = null;
+
 
    // private DcMotor armMotor = null;
 
@@ -78,10 +82,14 @@ public class DwightE_BasicOpMode_Iterative extends OpMode
         rightDrive = hardwareMap.get(DcMotor.class, "right_drive");
         leftDrive1  = hardwareMap.get(DcMotor.class, "left_drive1");
         rightDrive1 = hardwareMap.get(DcMotor.class, "right_drive1");
+        //armJoint = hardwareMap.get(DcMotor.class, "arm_joint");
 
-        //clampServo1 = hardwareMap.servo.get("armServo1");
-        //clampServo2 = hardwareMap.servo.get("armServo2");
+        //clampServo1 = hardwareMap.servo.get("left_armServo1");
+        //clampServo2 = hardwareMap.servo.get("right_armServo2");
+        //jointServo1 = hardwareMap.servo.get("left_jointServo1");
+        //jointServo2 = hardwareMap.servo.get("right_jointServo1");
         //testServo = hardwareMap.servo.get("backServo");
+
 
 
 
@@ -91,10 +99,14 @@ public class DwightE_BasicOpMode_Iterative extends OpMode
         rightDrive1.setDirection(DcMotor.Direction.REVERSE);
 
 
+
+
     //    clampServo1.setDirection(Servo.Direction.FORWARD);
      //   clampServo1.setPosition(0);
        // clampServo2.setDirection(Servo.Direction.REVERSE);
         //clampServo2.setPosition(0);
+        //jointServo1.setPosition(0);
+        //jointServo2.setPosition(0);
         //testServo.setPosition(0);
 
 
@@ -127,6 +139,7 @@ public class DwightE_BasicOpMode_Iterative extends OpMode
         // Setup a variable for each drive wheel to save power level for telemetry
         double leftPower;
         double rightPower;
+        //double armPower;
         //double leftPower1;
         //double rightPower1;
 
@@ -172,6 +185,16 @@ public class DwightE_BasicOpMode_Iterative extends OpMode
         } else {
             testServo.setPosition(0.0);
             telemetry.addData("B is not", "Pressed");
+        }
+        telemetry.update();
+
+        if(gamepad2.x) {
+            jointServo1.setPosition(0.5);
+            jointServo2.setPosition(0.5);
+        } else {
+            jointServo1.setPosition(0.5);
+            jointServo2.setPosition(0.5);
+            telemetry.addData("X is not", "Pressed");
         }
         telemetry.update();
 */
