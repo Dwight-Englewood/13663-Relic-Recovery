@@ -55,8 +55,9 @@ public class DwightE_BasicOpMode_Iterative extends OpMode
     private Servo clampServo2 = null;
     private Servo jointServo1 = null;
     private Servo jointServo2 = null;
-    private Servo testServo = null;
+    private Servo jewelServo = null;
 
+    private int servoPos = 0;
 
    // private DcMotor armMotor = null;
 
@@ -84,14 +85,19 @@ public class DwightE_BasicOpMode_Iterative extends OpMode
         rightDrive1 = hardwareMap.get(DcMotor.class, "right_drive1");
         //armJoint = hardwareMap.get(DcMotor.class, "arm_joint");
 
-        //clampServo1 = hardwareMap.servo.get("left_armServo1");
-        //clampServo2 = hardwareMap.servo.get("right_armServo2");
-        //jointServo1 = hardwareMap.servo.get("left_jointServo1");
-        //jointServo2 = hardwareMap.servo.get("right_jointServo1");
-        //testServo = hardwareMap.servo.get("backServo");
+        clampServo1 = hardwareMap.servo.get("left_armServo");
+        clampServo2 = hardwareMap.servo.get("right_armServo");
+        jointServo1 = hardwareMap.servo.get("left_jointServo");
+        jointServo2 = hardwareMap.servo.get("right_jointServo");
+        jewelServo = hardwareMap.servo.get("jewel");
 
 
 
+
+        clampServo1.setDirection(Servo.Direction.FORWARD);
+        clampServo2.setDirection(Servo.Direction.REVERSE);
+        jointServo1.setDirection(Servo.Direction.FORWARD);
+        jointServo2.setDirection(Servo.Direction.FORWARD);
 
         leftDrive.setDirection(DcMotor.Direction.FORWARD);
         rightDrive.setDirection(DcMotor.Direction.REVERSE);
@@ -150,54 +156,53 @@ public class DwightE_BasicOpMode_Iterative extends OpMode
         // - This uses basic math to combine motions and is easier to drive straight.
         double drive = -gamepad1.left_stick_y;
         double turn  =  gamepad1.right_stick_x;
-        boolean clamp = gamepad2.a;
-        boolean back = gamepad2.b;
+       // boolean clamp = gamepad1.a;
+       // boolean back = gamepad1.b;
         leftPower    = Range.clip(drive + turn, -0.75, 0.75) ;
         rightPower   = Range.clip(drive - turn, -0.75, 0.75) ;
-      //leftPower1    = Range.clip(drive + turn, -1.0, 1.0) ;
-      // rightPower1   = Range.clip(drive - turn, -1.0, 1.0) ;
-        // Tank Mode uses one stick to control each wheel.
-        // - This requires no math, but it is hard to drive forward slowly and keep straight.
-        // leftPower  = -gamepad1.left_stick_y ;
-        // rightPower = -gamepad1.right_stick_y ;
+        //leftPower1    = Range.clip(drive + turn, -1.0, 1.0) ;
+        // rightPower1   = Range.clip(drive - turn, -1.0, 1.0) ;
+
 
         // Send calculated power to wheels
         leftDrive.setPower(leftPower);
         rightDrive.setPower(rightPower);
         leftDrive1.setPower(leftPower);
         rightDrive1.setPower(rightPower);
-  /*      if(gamepad2.a)
+      /*  if(clamp)
         {
-            clampServo1.setPosition(.5);
-            clampServo2.setPosition(.5);
+            clampServo1.setPosition(0.5);
+            clampServo2.setPosition(0.5);
             // .setPosition --> 0-1
             //clampServo1.setPosition();
             // clampServo2.setPosition();
         } else {
             clampServo1.setPosition(0.0);
             clampServo2.setPosition(0.0);
-            telemetry.addData("A is not", "Pressed");
+        //    telemetry.addData("A is not", "Pressed");
+        }
+        telemetry.update();
+    */
+        if(gamepad1.x) {
+            jewelServo.setPosition(0.5);
         }
         telemetry.update();
 
-        if(gamepad2.b) {
-            testServo.setPosition(.5);
+        if(gamepad1.a) {
+            servoPos += 0.5;
+            clampServo1.setPosition(0.5);
+            clampServo2.setPosition(0.5);
+            telemetry.addData("clamp", "is", "On");
         } else {
-            testServo.setPosition(0.0);
-            telemetry.addData("B is not", "Pressed");
-        }
+            if(gamepad1.b) {
+                servoPos -= 0.5;
+                clampServo1.setPosition(0.0);
+                clampServo2.setPosition(1.0);
+                // telemetry.addData();
+            }
+            }
         telemetry.update();
 
-        if(gamepad2.x) {
-            jointServo1.setPosition(0.5);
-            jointServo2.setPosition(0.5);
-        } else {
-            jointServo1.setPosition(0.5);
-            jointServo2.setPosition(0.5);
-            telemetry.addData("X is not", "Pressed");
-        }
-        telemetry.update();
-*/
 
         // Show the elapsed game time and wheel power.
         telemetry.addData("Status", "Run Time: " + runtime.toString());
