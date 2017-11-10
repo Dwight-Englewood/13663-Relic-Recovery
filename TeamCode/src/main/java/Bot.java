@@ -5,7 +5,9 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 
+import org.firstinspires.ftc.teamcode.Enums.BotActions;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
+import org.firstinspires.ftc.teamcode.Enums.MovementEnum;
 
 /**
  * Created by 10A on 11/5/2017.
@@ -79,7 +81,7 @@ public class Bot {
     public void drive(double power) {
     FL.setPower(power);
     FR.setPower(power);
-    BL.setPower(power);
+    BL.setPower (power);
     BR.setPower(power);
   }
 
