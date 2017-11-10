@@ -43,7 +43,7 @@ import com.qualcomm.robotcore.util.Range;
  * It will later be changed to the iterative opmode but for now we need a basic thing that will work
  */
 
-@Autonomous(name="Auton Red", group="Linear Opmode")
+@Autonomous(name="Basic Auton Anywhere", group="Linear Opmode")
 //@Disabled
 public class Basic_Autonomous extends LinearOpMode {
 

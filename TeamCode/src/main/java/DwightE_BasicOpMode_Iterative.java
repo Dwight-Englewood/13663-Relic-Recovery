@@ -40,7 +40,7 @@ import com.qualcomm.robotcore.util.Range;
  * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
  */
 
-@TeleOp(name="Eli can't kill me", group="Iterative Opmode")
+@TeleOp(name="A TeleOp for All", group="Iterative Opmode")
 //@Disabled
 public class DwightE_BasicOpMode_Iterative extends OpMode
 {
