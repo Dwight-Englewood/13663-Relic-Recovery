@@ -61,6 +61,7 @@ public class Bot {
     Arm.setDirection(DcMotorSimple.Direction.FORWARD);
 
 
+
     BR.setPower(0);
     BL.setPower(0);
     FR.setPower(0);
@@ -71,6 +72,81 @@ public class Bot {
     //tele.addData(">","Gyro Calibrating. Do Not move!");
     //tele.update();
   }
+
+  public void tankDrive(double leftStick, double rightStick, double leftTrigger, double rightTrigger, boolean invert) {
+    int i = invert ?  -1 : 1;
+
+    if (leftTrigger > .3) {
+      drive(MovementEnum.LEFTSTRAFE, leftTrigger * i);
+      return;
+    }
+    if (rightTrigger > .3){
+      drive(MovementEnum.RIGHTSTRAFE, rightTrigger * i);
+      return;
+    }
+    leftStick *= i;
+    rightStick *= i;
+
+    FL.setPower(-leftStick);
+    BL.setPower(-leftStick);
+    FR.setPower(-rightStick);
+    BR.setPower(-rightStick);
+  }
+
+  //TODO: DIAGONALS
+  public void drive(MovementEnum movement, double power) {
+    switch (movement){
+      case FORWARD:
+        FL.setPower(power);
+        FR.setPower(power);
+        BL.setPower(power);
+        BR.setPower(power);
+        break;
+
+      case BACKWARD:
+        FL.setPower(-power);
+        FR.setPower(-power);
+        BL.setPower(-power);
+        BR.setPower(-power);
+        break;
+
+      case LEFTSTRAFE:
+        FL.setPower(-power);
+        FR.setPower(power);
+        BL.setPower(power);
+        BR.setPower(-power);
+        break;
+
+      case RIGHTSTRAFE:
+        FL.setPower(power);
+        FR.setPower(-power);
+        BL.setPower(-power);
+        BR.setPower(power);
+        break;
+
+      case LEFTTURN:
+        FL.setPower(-power);
+        FR.setPower(power);
+        BL.setPower(-power);
+        BR.setPower(power);
+        break;
+
+      case RIGHTTURN:
+        FL.setPower(power);
+        FR.setPower(-power);
+        BL.setPower(power);
+        BR.setPower(-power);
+        break;
+
+      case STOP:
+        FL.setPower(0);
+        FR.setPower(0);
+        BL.setPower(0);
+        BR.setPower(0);
+        break;
+    }
+  }
+
 
     /**
      * This is a really weird way to make it drive
@@ -143,6 +219,10 @@ public class Bot {
     rightServo.setPosition(0);
   }
 
-
+  //Stuff
+  public void intake(double power){
+    intakeOne.setPower(power);
+    intakeTwo.setPower(power);
+  }
 
 }
