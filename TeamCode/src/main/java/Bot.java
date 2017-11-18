@@ -187,7 +187,7 @@ public class Bot {
   }
 
     /**
-     * This is how fast you can make Armothy flacid.
+     * This is how fast you can make Armothy go down
      *
      * @param down = how fast you want to turn off armothy
      */
@@ -200,7 +200,7 @@ public class Bot {
      *
      * @param nPower = how fast the compliant wheels will grab the blocks
      */
-  public void putItInMe(double nPower){
+  public void intake(double nPower){
       SquishyL.setPower(nPower);
       SquishyR.setPower(-nPower);
   }
