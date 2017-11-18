@@ -22,7 +22,7 @@ public class Bot {
   HardwareMap map;
   Telemetry tele;
   // Servos that are used
-  Servo leftServo, rightServo;
+  Servo leftServo, rightServo, jewelServo;
 
   public void init(HardwareMap map, Telemetry tele){
     this.map = map;
@@ -38,8 +38,9 @@ public class Bot {
     Arm = this.map.get(DcMotor.class, "Armothy");
 
     //Servo names for phone
-    leftServo = map.servo.get("leftServo");
-    rightServo = map.servo.get("rightServo");
+    leftServo = this.map.servo.get("leftServo");
+    rightServo = this.map.servo.get("rightServo");
+    jewelServo = this.map.get("jewelServo");
 
 
       // Set Motor Run Modes
@@ -60,6 +61,8 @@ public class Bot {
     SquishyR.setDirection(DcMotorSimple.Direction.REVERSE);
     Arm.setDirection(DcMotorSimple.Direction.FORWARD);
 
+    // Set Servo Directions
+      jewelServo.setDirection(Servo.Direction.FORWARD);
 
 
     BR.setPower(0);
@@ -225,4 +228,7 @@ public class Bot {
     intakeTwo.setPower(power);
   }
 
+  public void jewelDown(double position){
+      jewelServo.setPositon(1.0);
+  }
 }

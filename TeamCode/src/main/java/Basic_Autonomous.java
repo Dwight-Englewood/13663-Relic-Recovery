@@ -43,51 +43,24 @@ import com.qualcomm.robotcore.util.Range;
  * It will later be changed to the iterative opmode but for now we need a basic thing that will work
  */
 
-@Autonomous(name="Basic Auton Anywhere", group="Linear Opmode")
+@Autonomous(name="Basic Auton Anywhere(Blue)", group="Linear Opmode")
 //@Disabled
 public class Basic_Autonomous extends LinearOpMode {
-
-    // Declare Motors.
-    private ElapsedTime runtime = new ElapsedTime();
-    private DcMotor leftDrive = null;
-    private DcMotor rightDrive = null;
-    private DcMotor leftDrive1 = null;
-    private DcMotor rightDrive1 = null;
-    //private DcMotor armJoint = null;
-
-    private Servo clampServo1 = null;
-    private Servo clampServo2 = null;
-    private Servo jointServo1 = null;
-    private Servo jointServo2 = null;
-    private Servo jewelServo = null;
-
+    Bot robot = new robot();
     @Override
     public void runOpMode() throws InterruptedException {
+        robot.init(hardwareMap,telemetry);
         telemetry.addData("Status", "Initialized");
         telemetry.update();
 
-        // Hardware
-        leftDrive  = hardwareMap.get(DcMotor.class, "left_drive");
-        rightDrive = hardwareMap.get(DcMotor.class, "right_drive");
-        leftDrive1  = hardwareMap.get(DcMotor.class, "left_drive1");
-        rightDrive1 = hardwareMap.get(DcMotor.class, "right_drive1");
-
-      //  jewelServo = harwareMap.get(Servo.class, "jewel");
-
-        leftDrive.setDirection(DcMotor.Direction.FORWARD);
-        rightDrive.setDirection(DcMotor.Direction.REVERSE);
-        leftDrive1.setDirection(DcMotor.Direction.FORWARD);
-        rightDrive1.setDirection(DcMotor.Direction.REVERSE);
 
         // Wait for the game to start (driver presses PLAY)
         waitForStart();
 
-        leftDrive.setPower(0.5);
-        leftDrive1.setPower(0.5);
-        rightDrive.setPower(-0.5);
-        rightDrive1.setPower(-0.5);
+        jewelServo.jewelDown();
+       // if(colorSensor.blue() >= 2){ }
 
-     //   jewelServo.setPosition(0);
+      robot.drive(MovementEnum.FORWARD, 1.0);
 
         runtime.reset();
 
@@ -97,9 +70,6 @@ public class Basic_Autonomous extends LinearOpMode {
            // telemetry.addData("Motors", "left (%.2f), right (%.2f)", leftPower, rightPower);
             telemetry.update();
         }
-        leftDrive.setPower(0.0);
-        leftDrive1.setPower(0.0);
-        rightDrive1.setPower(0.0);
-        rightDrive.setPower(0.0);
+        robot.drive(MovementEnum.STOP,0.0);
     }
 }

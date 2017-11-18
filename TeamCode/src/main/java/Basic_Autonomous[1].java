@@ -50,84 +50,19 @@ import com.qualcomm.robotcore.util.Range;
 @Autonomous(name="Attempt Uno at Auton", group="Linear Opmode")
 //@Disabled
 public class Basic_Autonomous extends LinearOpMode {
-
-    // Declare Motors.
-    private ElapsedTime runtime = new ElapsedTime();
-    private DcMotor leftDrive = null;
-    private DcMotor rightDrive = null;
-    private DcMotor leftDrive1 = null;
-    private DcMotor rightDrive1 = null;
-    //private DcMotor armJoint = null;
-    //private DcMotor armBase = null;
-
-   // private Servo clampServo1 = null;
-    //private Servo clampServo2 = null;
-    //private Servo jewelServo = null;
-
-    ColorSensor colorSensor;
-    private int position;
-
+    private Bot robot = new Bot();
+    private double timer = new ElapsedTimer();
     @Override
     public void runOpMode() throws InterruptedException {
+        robot.init(hardwareMap,telemetry);
         telemetry.addData("Status", "Initialized");
         telemetry.update();
 
-        // Hardware
-        leftDrive  = hardwareMap.get(DcMotor.class, "LD");
-        rightDrive = hardwareMap.get(DcMotor.class, "RD");
-        leftDrive1  = hardwareMap.get(DcMotor.class, "LD1");
-        rightDrive1 = hardwareMap.get(DcMotor.class, "RD1");
-
-       // jewelServo = hardwareMap.get(Servo.class, "jewel");
-
-        /*
-        leftDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        rightDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        leftDrive1.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        rightDrive1.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-*/
-
-        leftDrive.setDirection(DcMotor.Direction.FORWARD);
-        rightDrive.setDirection(DcMotor.Direction.REVERSE);
-        leftDrive1.setDirection(DcMotor.Direction.FORWARD);
-        rightDrive1.setDirection(DcMotor.Direction.REVERSE);
+        robot.drive();
+        while(timer < 1.5){}
 
 
-        //jewelServo.setDirection(Servo.Direction.FORWARD);
+        robot.drive(MovementEnum.STOP);
 
-        position = leftDrive.getCurrentPosition();
-        //jewelServo.setPosition(0,0);
-        // Wait for the game to start (driver presses PLAY)
-        waitForStart();
-
-        // 1220 ticks per Revolution
-        // 8 inches per rotation
-
-
-        // jewelServo.setPosition(1.0)
-        //if(colorSensor.blue()){
-        //}
-       // leftDrive.setTargetPosition(6754);
-      //  leftDrive1.setTargetPosition(6754);
-      //  rightDrive.setTargetPosition(6754);
-       // rightDrive1.setTargetPosition(6754);
-
-        leftDrive.setPower(0.2);
-        leftDrive1.setPower(0.2);
-        rightDrive.setPower(-0.2);
-        rightDrive1.setPower(-0.2);
-
-     //   jewelServo.setPosition(0);
-
-        runtime.reset();
-
-        // run until the end of the match (driver presses STOP)
-        while (runtime.time() < 1.5) {
-
-        }
-        leftDrive.setPower(0.0);
-        leftDrive1.setPower(0.0);
-        rightDrive1.setPower(0.0);
-        rightDrive.setPower(0.0);
     }
 }
