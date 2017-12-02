@@ -19,6 +19,8 @@ public class TestTele extends OpMode{
     @Override
     public void init() {
         robot.init(hardwareMap, telemetry);
+        robot.setDriveMotorModes(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
     }
 
     @Override
@@ -35,6 +37,8 @@ public class TestTele extends OpMode{
         //robot.fieldCentricDrive(gamepad1.left_stick_x, gamepad1.left_stick_y, gamepad1.right_stick_x); // Field centric?
         robot.tankDrive(gamepad1.left_stick_y, gamepad1.right_stick_y, gamepad1.left_trigger, gamepad1.right_trigger, false); // Tank drive???
 
+
+
         if (gamepad2.right_bumper) {
             robot.intake(1);
         } else if (gamepad2.right_trigger > .3) {
@@ -42,6 +46,7 @@ public class TestTele extends OpMode{
         } else {
             robot.intake(0);
         }
+
 
         if (gamepad2.right_stick_y > .3) {
             robot.intakeBrake.setPower(-1);
