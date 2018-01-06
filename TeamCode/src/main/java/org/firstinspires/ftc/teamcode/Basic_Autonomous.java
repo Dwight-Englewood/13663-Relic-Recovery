@@ -31,38 +31,65 @@
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
-import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.util.Range;
-
+import org.firstinspires.ftc.teamcode.Enums.MovementEnum;
+import org.firstinspires.ftc.robotcore.external.navigation.RelicRecoveryVuMark;
+import org.firstinspires.ftc.robotcore.external.navigation.VuMarkInstanceId;
+import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer;
+import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackable;
+import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackableDefaultListener;
+import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackables;
 
 /**
  * This will be the first Trial at Basic Autonomous programming.
  *
- * @author TanayKane;
- *
- *
  * It will later be changed to the iterative opmode but for now we need a basic thing that will work
  */
 
-@Autonomous(name="Attempt Uno at Auton", group="Linear Opmode")
+@Autonomous(name="Basic Auton Anywhere(Blue)", group="Linear Opmode")
 //@Disabled
 public class Basic_Autonomous extends LinearOpMode {
-    private Bot robot = new Bot();
-    private double timer = new ElapsedTimer();
+    Bot robot = new Bot();
+    private ElapsedTime runtime = new ElapsedTime();
+
     @Override
     public void runOpMode() throws InterruptedException {
-        robot.init(hardwareMap,telemetry);
-        telemetry.addData("Status", "Initialized");
-        telemetry.update();
+                robot.init(hardwareMap,telemetry);
+                telemetry.addData("Status", "Initialized");
+                telemetry.update();
 
-        robot.drive();
-        while(timer < 1.5){}
+                // Wait for the game to start (driver presses PLAY)
+                waitForStart();
+
+              /*  robot.jewelDown();
+                if(robot.colourSensor.blue() >= 2){
+                    robot.drive(MovementEnum.BACKWARD, 0.2);
+                }
+                if(robot.colourSensor.red() >= 2){
+                    robot.drive(MovementEnum.FORWARD, 0.2);
+                }
+
+                robot.jewelServo.setPosition(0.0);
+                runtime.reset();
 
 
-        robot.drive(MovementEnum.STOP);
+                //TODO: Do math for MOtor Values, 2:1 ratio
+                robot.setnPower(1.0);
+                // change
+                robot.getThere(445);
+            */
+            robot.drive(MovementEnum.FORWARD, 0.5);
+            while(runtime.seconds() < 2.5){}
 
-    }
-}
+
+
+
+
+
+
+
+            }
+        }

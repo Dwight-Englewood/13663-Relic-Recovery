@@ -52,14 +52,14 @@ public class BotTest2 {
         BR.setPower(0);
     }
 
-    public void tankDrive(double leftStick, double rightStick, double leftTrigger, double rightTrigger, boolean invert, boolea brake) {
+    public void tankDrive(double leftStick, double rightStick, double leftTrigger, double rightTrigger, boolean invert, boolean brake) {
         int i = invert ? -1:1;
         if (leftTrigger > .3) {
             drive(MovementEnum.LEFTSTRAFE, leftTrigger * i);
             return;
         }
         if (rightTrigger > .3) {
-            drive(MovementEnum.RIGHTSTRAEE, rightTrigger *i);
+            drive(MovementEnum.RIGHTSTRAFE, rightTrigger *i);
             return;
         }
         leftStick *= i;
