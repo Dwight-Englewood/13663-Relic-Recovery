@@ -1,3 +1,4 @@
+package org.firstinspires.ftc.teamcode;
 
 
 import com.qualcomm.robotcore.hardware.*;
@@ -20,7 +21,9 @@ public class Bot {
   Servo leftServo, rightServo, jewelServo;
     ColorSensor colourSensor;
 
-  public void init(HardwareMap map, Telemetry tele){
+    public Bot(){}
+
+    public void init(HardwareMap map, Telemetry tele){
     this.map = map;
     this.tele = tele;
 

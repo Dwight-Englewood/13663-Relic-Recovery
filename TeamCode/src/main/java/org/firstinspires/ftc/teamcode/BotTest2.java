@@ -16,8 +16,9 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 
 public class BotTest2 {
 
-    public DcMotor BL, BR, FL, FR;
-    public Servo jewelServo;
+    public DcMotor BL, BR, FL, FR, lift;
+    //public Servo jewelServo;
+    public Servo leftClamp, rightClamp;
     public HardwareMap map;
     public Telemetry tele;
 
@@ -32,7 +33,10 @@ public class BotTest2 {
         FR = map.get(DcMotor.class, "FR");
         BL = map.get(DcMotor.class, "BL");
         BR = map.get(DcMotor.class, "BR");
-        jewelServo = map.get(Servo.class, "jewel");
+        lift = map.get(DcMotor.class, "lift");
+        //jewelServo = map.get(Servo.class, "jewel");
+        leftClamp = map.get(Servo.class, "lclamp");
+        rightClamp = map.get(Servo.class, "rclamp");
 
         //Setting runmode
         FL.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
@@ -138,7 +142,7 @@ public class BotTest2 {
         BR.setZeroPowerBehavior(behavior);
     }
 
-    public void jewelUp(){jewelServo.setPosition(.6);}
-    public void jewelOut(){jewelServo.setPosition(.3);}
+    //public void jewelUp(){jewelServo.setPosition(.6);}
+    //public void jewelOut(){jewelServo.setPosition(.3);}
 
 }

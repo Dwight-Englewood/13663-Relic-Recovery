@@ -28,7 +28,7 @@ public class TeleTest2 extends OpMode {
     @Override
     public void start() {
         telemetry.clear();
-        robot.jewelUp();
+        //robot.jewelUp();
         robot.setDriveMotorModes(DcMotor.RunMode.RUN_USING_ENCODER);
     }
 
@@ -46,9 +46,9 @@ public class TeleTest2 extends OpMode {
         }
 
         if(gamepad2.x) {
-            robot.jewelOut();
+            //robot.jewelOut();
         } else {
-            robot.jewelUp();
+            //robot.jewelUp();
         }
         countdown --;
         telemetry.addData("Braking", brakeToggle);
