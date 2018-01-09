@@ -53,7 +53,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackables;
 @Autonomous(name="Basic Auton Anywhere(Blue)", group="Linear Opmode")
 //@Disabled
 public class Basic_Autonomous extends LinearOpMode {
-    Bot robot = new Bot();
+    BotTest2 robot = new BotTest2();
     private ElapsedTime runtime = new ElapsedTime();
 
     @Override

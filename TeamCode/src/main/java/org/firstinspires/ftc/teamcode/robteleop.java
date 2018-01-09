@@ -57,9 +57,9 @@ public class robteleop extends OpMode
         }
 
         if (gamepad2.right_trigger > .2) {
-            rightPos += .1;
-        } else if (gamepad2.right_bumper) {
             rightPos -= .1;
+        } else if (gamepad2.right_bumper) {
+            rightPos += .1;
         }
 
         if (gamepad2.left_trigger > .2) {
