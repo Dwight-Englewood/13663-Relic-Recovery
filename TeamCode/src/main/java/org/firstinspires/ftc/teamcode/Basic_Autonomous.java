@@ -29,7 +29,7 @@
 package org.firstinspires.ftc.teamcode;
 
 
-import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -58,12 +58,12 @@ public class Basic_Autonomous extends LinearOpMode {
 
     @Override
     public void runOpMode() throws InterruptedException {
-                robot.init(hardwareMap,telemetry);
-                telemetry.addData("Status", "Initialized");
-                telemetry.update();
+        robot.init(hardwareMap,telemetry);
+        telemetry.addData("Status", "Initialized");
+        telemetry.update();
 
-                // Wait for the game to start (driver presses PLAY)
-                waitForStart();
+        // Wait for the game to start (driver presses PLAY)
+        waitForStart();
 
               /*  robot.jewelDown();
                 if(robot.colourSensor.blue() >= 2){
@@ -82,8 +82,8 @@ public class Basic_Autonomous extends LinearOpMode {
                 // change
                 robot.getThere(445);
             */
-            robot.drive(MovementEnum.FORWARD, 0.5);
-            while(runtime.seconds() < 2.5){}
+        robot.drive(MovementEnum.FORWARD, 0.5);
+        while(runtime.seconds() < 2.5){}
 
 
 
@@ -92,5 +92,5 @@ public class Basic_Autonomous extends LinearOpMode {
 
 
 
-            }
-        }
+    }
+}
