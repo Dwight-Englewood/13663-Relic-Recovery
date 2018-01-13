@@ -57,7 +57,7 @@ public class BotTest2 {
     }
 
     public void tankDrive(double leftStick, double rightStick, double leftTrigger, double rightTrigger, boolean invert, boolean brake) {
-        int i = invert ? -1:1;
+        double i = invert ? -0.75:0.75;
         if (leftTrigger > .3) {
             drive(MovementEnum.LEFTSTRAFE, leftTrigger * i);
             return;
@@ -74,7 +74,12 @@ public class BotTest2 {
         BL.setPower(-leftStick);
         BR.setPower(-rightStick);
         }
-
+    public void setPower(int power){
+        FL.setPower(power);
+        BL.setPower(power);
+        FR.setPower(power);
+        BR.setPower(power);
+    }
         public void drive(MovementEnum movement, double power) {
             switch (movement) {
                 case FORWARD:
@@ -141,7 +146,13 @@ public class BotTest2 {
         BL.setZeroPowerBehavior(behavior);
         BR.setZeroPowerBehavior(behavior);
     }
+    public int distanceToRevs(double distance) {
+        final double wheelCirc = 31.9185813;
 
+        final double gearMotorTickThing = .5 * 1120; //neverrest 40 = 1120,
+
+        return (int) (gearMotorTickThing * (distance / wheelCirc));
+    }
     //public void jewelUp(){jewelServo.setPosition(.6);}
     //public void jewelOut(){jewelServo.setPosition(.3);}
 

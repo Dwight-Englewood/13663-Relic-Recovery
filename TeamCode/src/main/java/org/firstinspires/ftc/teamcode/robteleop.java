@@ -9,7 +9,7 @@ import org.firstinspires.ftc.teamcode.Enums.MovementEnum;
 /**
  * Created by aburur on 1/6/18.
  */
-@TeleOp(name="ROB TELEOP", group="TELEOP")
+@TeleOp(name="ROB TELEOP(DA REALIST 123)", group="TELEOP")
 public class robteleop extends OpMode
 {
     BotTest2 robot = new BotTest2();
@@ -58,15 +58,13 @@ public class robteleop extends OpMode
 
         if (gamepad2.right_trigger > .2) {
             rightPos -= .1;
+            leftPos += .1;
         } else if (gamepad2.right_bumper) {
             rightPos += .1;
-        }
-
-        if (gamepad2.left_trigger > .2) {
-            leftPos += .1;
-        } else if (gamepad2.left_bumper) {
             leftPos -= .1;
         }
+
+        
 
         robot.rightClamp.setPosition(rightPos);
         robot.leftClamp.setPosition(leftPos);

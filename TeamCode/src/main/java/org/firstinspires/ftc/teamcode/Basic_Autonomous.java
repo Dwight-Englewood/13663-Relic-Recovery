@@ -50,47 +50,73 @@ import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackables;
  * It will later be changed to the iterative opmode but for now we need a basic thing that will work
  */
 
-@Autonomous(name="Basic Auton Anywhere(Blue)", group="Linear Opmode")
+@Autonomous(name="Basic Auton Anywhere(Blue)", group="Iterative Opmode")
 //@Disabled
-public class Basic_Autonomous extends LinearOpMode {
+public class Basic_Autonomous extends OpMode {
     BotTest2 robot = new BotTest2();
     private ElapsedTime runtime = new ElapsedTime();
+    int commandNum = 0;
 
     @Override
-    public void runOpMode() throws InterruptedException {
-        robot.init(hardwareMap,telemetry);
+    public void init() {
+        robot.init(hardwareMap, telemetry);
+        robot.setDriveMotorModes(DcMotor.RunMode.RUN_TO_POSITION);
         telemetry.addData("Status", "Initialized");
-        telemetry.update();
-
-        // Wait for the game to start (driver presses PLAY)
-        waitForStart();
-
-              /*  robot.jewelDown();
-                if(robot.colourSensor.blue() >= 2){
-                    robot.drive(MovementEnum.BACKWARD, 0.2);
-                }
-                if(robot.colourSensor.red() >= 2){
-                    robot.drive(MovementEnum.FORWARD, 0.2);
-                }
-
-                robot.jewelServo.setPosition(0.0);
-                runtime.reset();
-
-
-                //TODO: Do math for MOtor Values, 2:1 ratio
-                robot.setnPower(1.0);
-                // change
-                robot.getThere(445);
-            */
-        robot.drive(MovementEnum.FORWARD, 0.5);
-        while(runtime.seconds() < 2.5){}
-
-
-
-
-
-
-
-
     }
+
+    /*
+     * Code to run REPEATEDLY after the driver hits INIT, but before they hit PLAY
+     */
+    @Override
+    public void init_loop() {
+    }
+    /*
+        * Code to run ONCE when the driver hits PLAY
+        */
+    @Override
+    public void start() {
+        runtime.reset();
+    }
+
+    /*
+     * Code to run REPEATEDLY after the driver hits PLAY but before they hit STOP
+     */
+    @Override
+    public void loop() {
+        switch(commandNum){
+            case 0:
+                robot.setDriveMotorModes(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+                commandNum++;
+                break;
+            case 1:
+                robot.FL.setTargetPosition(robot.distanceToRevs(0.5));
+                robot.FR.setTargetPosition(robot.distanceToRevs(0.5));
+                robot.BR.setTargetPosition(robot.distanceToRevs(0.5));
+                robot.BL.setTargetPosition(robot.distanceToRevs(0.5));
+
+                if(robot.FL.getTargetPosition() != robot.distanceToRevs(0.5)){commandNum--;}
+                else commandNum++;
+                break;
+            case 2:
+                robot.setDriveMotorModes(DcMotor.RunMode.RUN_TO_POSITION);
+                robot.setPower(1);
+
+                telemetry.addData("Target Encoder Position: ", robot.FL.getTargetPosition());
+                telemetry.addData("Power to wheels:", robot.FL.getPower());
+                telemetry.update();
+
+
+                break;
+
+        }
+    }
+
+    /*
+     * Code to run ONCE after the driver hits STOP
+     */
+    @Override
+    public void stop() {
+    }
+
 }
+
