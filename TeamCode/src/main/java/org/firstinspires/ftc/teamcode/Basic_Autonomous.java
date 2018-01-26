@@ -84,29 +84,60 @@ public class Basic_Autonomous extends OpMode {
     @Override
     public void loop() {
         switch(commandNum){
+            // TODO: Check the weird ratios and put them below
+
+            //FR: slowest
+            //FL: fast
+            //BR: slower
+            //BL: fast
+            case 0:
+                robot.setDriveMotorModes(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+                robot.FL.setPower(0.25);
+                robot.BL.setPower(-0.25);
+                robot.FR.setPower(0.25);
+                robot.BR.setPower(-0.25);
+                while (runtime.milliseconds() < 1200){}
+                telemetry.addData("robot Power FL:",robot.FL.getPower() );
+                // telemetry.addData("robot Power FR:",robot.FR.getPower());
+                //telemetry.addData("robot Power BL:",robot.BL.getPower());
+                //telemetry.addData("robot Power BR:",robot.BR.getPower());
+                break;
+        /*
+
+            case -1:
+                robot.jewelServo.setPosition(1.0);
+                if(robot.colourSensor.blue() < 2.0){
+                    robot.drive(MovementEnum.FORWARD, 0.2);
+                }
+                else robot.drive(MovementEnum.BACKWARD, 0.2);
+                commandNum++;
+                break;
             case 0:
                 robot.setDriveMotorModes(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
                 commandNum++;
                 break;
             case 1:
-                robot.FL.setTargetPosition(robot.distanceToRevs(0.5));
-                robot.FR.setTargetPosition(robot.distanceToRevs(0.5));
-                robot.BR.setTargetPosition(robot.distanceToRevs(0.5));
-                robot.BL.setTargetPosition(robot.distanceToRevs(0.5));
-
-                if(robot.FL.getTargetPosition() != robot.distanceToRevs(0.5)){commandNum--;}
+                robot.FL.setTargetPosition(10);
+                robot.FR.setTargetPosition(10);
+                robot.BR.setTargetPosition(10);
+                robot.BL.setTargetPosition(10);
+                //robot.distanceToRevs(2.)
+                if(robot.FL.getTargetPosition() != 10){commandNum--;}
                 else commandNum++;
                 break;
             case 2:
                 robot.setDriveMotorModes(DcMotor.RunMode.RUN_TO_POSITION);
-                robot.setPower(1);
+                robot.BR.setPower(0.75);
+                robot.FR.setPower(0.75);
+                robot.BL.setPower(0.75);
+                robot.FL.setPower(0.75);
 
                 telemetry.addData("Target Encoder Position: ", robot.FL.getTargetPosition());
                 telemetry.addData("Power to wheels:", robot.FL.getPower());
                 telemetry.update();
-
-
                 break;
+
+*/
 
         }
     }
