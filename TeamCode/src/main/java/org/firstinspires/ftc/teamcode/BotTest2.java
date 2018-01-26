@@ -73,66 +73,67 @@ public class BotTest2 {
         FR.setPower(-rightStick);
         BL.setPower(-leftStick);
         BR.setPower(-rightStick);
-        }
-    public void setPower(int power){
+    }
+    public void setPower(double power){
         FL.setPower(power);
         BL.setPower(power);
         FR.setPower(power);
         BR.setPower(power);
     }
-        public void drive(MovementEnum movement, double power) {
-            switch (movement) {
-                case FORWARD:
-                    FL.setPower(power);
-                    FR.setPower(power);
-                    BL.setPower(power);
-                    BR.setPower(power);
-                    break;
+    public void drive(MovementEnum movement, double power) {
+        switch (movement) {
+            case FORWARD:
+                FL.setPower(power);
+                FR.setPower(power);
+                BL.setPower(power);
+                BR.setPower(power);
+                break;
 
-                case BACKWARD:
-                    FL.setPower(-power);
-                    FR.setPower(-power);
-                    BL.setPower(-power);
-                    BR.setPower(-power);
-                    break;
+            case BACKWARD:
+                FL.setPower(-power);
+                FR.setPower(-power);
+                BL.setPower(-power);
+                BR.setPower(-power);
+                break;
 
-                case LEFTSTRAFE:
-                    FL.setPower(-power);
-                    FR.setPower(power);
-                    BL.setPower(power);
-                    BR.setPower(-power);
-                    break;
+            case LEFTSTRAFE:
+                FL.setPower(-power);
+                FR.setPower(-power);
+                BL.setPower(power);
+                BR.setPower(power);
+                break;
 
-                case RIGHTSTRAFE:
-                    FL.setPower(power);
-                    FR.setPower(-power);
-                    BL.setPower(-power);
-                    BR.setPower(power);
-                    break;
+            case RIGHTSTRAFE:
+                FL.setPower(power);
+                FR.setPower(power);
+                BL.setPower(-power);
+                BR.setPower(-power);
+                break;
 
-                case LEFTTURN:
-                    FL.setPower(-power);
-                    FR.setPower(power);
-                    BL.setPower(-power);
-                    BR.setPower(power);
-                    break;
 
-                case RIGHTTURN:
-                    FL.setPower(power);
-                    FR.setPower(-power);
-                    BL.setPower(power);
-                    BR.setPower(-power);
-                    break;
+            case LEFTTURN:
+                FL.setPower(-power);
+                FR.setPower(power);
+                BL.setPower(-power);
+                BR.setPower(power);
+                break;
 
-                case STOP:
-                    FL.setPower(0);
-                    FR.setPower(0);
-                    BL.setPower(0);
-                    BR.setPower(0);
-                    break;
-            }
+            case RIGHTTURN:
+                FL.setPower(power);
+                FR.setPower(-power);
+                BL.setPower(power);
+                BR.setPower(-power);
+                break;
 
+            case STOP:
+                FL.setPower(0);
+                FR.setPower(0);
+                BL.setPower(0);
+                BR.setPower(0);
+                break;
         }
+
+    }
 
     public void setDriveMotorModes(DcMotor.RunMode mode) {
         FL.setMode(mode);
@@ -155,5 +156,4 @@ public class BotTest2 {
     }
     //public void jewelUp(){jewelServo.setPosition(.6);}
     //public void jewelOut(){jewelServo.setPosition(.3);}
-
 }
