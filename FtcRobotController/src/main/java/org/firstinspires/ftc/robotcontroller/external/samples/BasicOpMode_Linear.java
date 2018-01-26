@@ -104,17 +104,7 @@ public class BasicOpMode_Linear extends LinearOpMode {
             // Send calculated power to wheels
             leftDrive.setPower(leftPower);
             rightDrive.setPower(rightPower);
-           /*
-            if(gamepad1.a)
-            {
-                leftPower = 1.0;
-                leftDrive.setPower(leftPower);
-            }
-            else
-            {
-                leftDrive.setPower(0);
-            }
-            */
+
             // Show the elapsed game time and wheel power.
             telemetry.addData("Status", "Run Time: " + runtime.toString());
             telemetry.addData("Motors", "left (%.2f), right (%.2f)", leftPower, rightPower);
