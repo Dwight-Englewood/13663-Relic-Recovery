@@ -50,7 +50,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackables;
  * It will later be changed to the iterative opmode but for now we need a basic thing that will work
  */
 
-@Autonomous(name="Basic Auton Anywhere(Blue)", group="Iterative Opmode")
+@Autonomous(name="Basic Auton Anywhere(Blue TIMEDD)", group="Iterative Opmode")
 //@Disabled
 public class Basic_Autonomous extends OpMode {
     BotTest2 robot = new BotTest2();
