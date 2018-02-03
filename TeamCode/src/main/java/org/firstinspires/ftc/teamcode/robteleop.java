@@ -24,6 +24,8 @@ public class robteleop extends OpMode
         robot.init(hardwareMap, telemetry);
         robot.setDriveMotorModes(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         telemetry.addData("Status", "Initialized");
+        robot.lift.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        robot.setDriveZeroPowers(DcMotor.ZeroPowerBehavior.BRAKE);
     }
 
     /*
@@ -46,6 +48,7 @@ public class robteleop extends OpMode
      */
     @Override
     public void loop() {
+        // TODO: update SDK and stuff off of google play store
         robot.tankDrive(gamepad1.left_stick_y, -1*gamepad1.right_stick_y, gamepad1.left_trigger, gamepad1.right_trigger, false, false);
 
         if (gamepad2.dpad_up) {
@@ -57,18 +60,27 @@ public class robteleop extends OpMode
         }
 
         if (gamepad2.right_trigger > .2) {
-            rightPos -= .1;
-            leftPos += .1;
-        } else if (gamepad2.right_bumper) {
-            rightPos += .1;
-            leftPos -= .1;
+            rightPos -= .5;
+            leftPos += .5;
+        } else if (gamepad2.left_trigger > .2) {
+            rightPos += .5;
+            leftPos -= .5;
         }
 
-        
+
 
         robot.rightClamp.setPosition(rightPos);
+        robot.rightClamp2.setPosition(rightPos);
+        robot.leftClamp2.setPosition(leftPos);
         robot.leftClamp.setPosition(leftPos);
 
+        telemetry.addData("Front Left: ", robot.FL.getPower());
+        telemetry.addData("Front Right: ", robot.FR.getPower());
+        telemetry.addData("Back Left: ", robot.BL.getPower());
+        telemetry.addData("Back Right: ", robot.BR.getPower());
+        telemetry.addData("qwe6y7uojuul234rtyui: ", robot.jewelServo.getPosition());
+        telemetry.addData("Servo L: ", robot.leftClamp.getPosition());
+        telemetry.addData("Servo R: ", robot.rightClamp.getPosition());
     }
 
     /*
@@ -77,4 +89,4 @@ public class robteleop extends OpMode
     @Override
     public void stop() {
     }
-}
+}}
