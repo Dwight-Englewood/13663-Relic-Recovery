@@ -20,8 +20,9 @@ import org.firstinspires.ftc.teamcode.Enums.MovementEnum;
 //@Disabled
 public class DwightE_BasicOpMode_Iterative extends OpMode
 {
-   Bot robot = new Bot();
-   boolean inverts = false;
+    BotTest2 robot = new BotTest2();
+    double jPos = 0.5;
+
 
     /*
      * Code to run ONCE when the driver hits INIT
@@ -31,7 +32,7 @@ public class DwightE_BasicOpMode_Iterative extends OpMode
         telemetry.addData("Status", "Initialized");
         robot.init(hardwareMap, telemetry);
         telemetry.addData("Status", "Initialized");
-        robot.setMotorModes(DcMotor.RunMode.RUN_USING_ENCODER);
+        robot.setDriveMotorModes(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
     }
 
     /*
@@ -54,29 +55,18 @@ public class DwightE_BasicOpMode_Iterative extends OpMode
      */
     @Override
     public void loop() {
-       robot.tankDrive(gamepad1.left_stick_y, gamepad1.right_stick_y,gamepad1.left_trigger,gamepad1.right_trigger, inverts);
+        if(gamepad1.x || gamepad1.right_trigger > .2) jPos += 0.1;
+        if(gamepad1.y || gamepad1.left_trigger > .2) jPos -=0.1;
 
 
-        if(gamepad1.x) {
-            robot.jewelServo.setPosition(0.5);
-        }
-        telemetry.update();
 
-        if(gamepad1.a) {
 
-            robot.leftServo.setPosition(0.5);
-            robot.rightServo.setPosition(0.5);
-            telemetry.addData("clamp", "is", "On");
-        } else {
-            if(gamepad1.b) {
-
-                robot.leftServo.setPosition(0.0);
-                robot.rightServo.setPosition(1.0);
-                // telemetry.addData();
-            }
-            }
-        telemetry.update();
-        telemetry.addData("Motors", "left (%.2f), right (%.2f)", MovementEnum.values());
+        robot.jewelServo.setPosition(jPos);
+        telemetry.addData("ARGB: ",robot.cSensor.argb() );
+        telemetry.addData("BLUE:  ", robot.cSensor.blue());
+        telemetry.addData("RED: ", robot.cSensor.red());
+        telemetry.addData("GREEN ", robot.cSensor.green());
+        telemetry.addData("Jewel Servo: ", robot.jewelServo.getPosition());
 
         // Show the elapsed game time and wheel power.
 
