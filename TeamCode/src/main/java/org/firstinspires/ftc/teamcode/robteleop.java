@@ -9,13 +9,14 @@ import org.firstinspires.ftc.teamcode.Enums.MovementEnum;
 /**
  * Created by aburur on 1/6/18.
  */
-@TeleOp(name="ROB TELEOP(DA REALIST 123)", group="TELEOP")
+@TeleOp(name="TELEOPTELEOPTELEOPWENTELEOPTELEOPTELEOP", group="TELEOP")
 public class robteleop extends OpMode
 {
     BotTest2 robot = new BotTest2();
     double rightPos = .5;
     double leftPos = .5;
-
+    double rightPos2 = .5;
+    double leftPos2 = .5;
     /*
      * Code to run ONCE when the driver hits INIT
      */
@@ -60,27 +61,39 @@ public class robteleop extends OpMode
         }
 
         if (gamepad2.right_trigger > .2) {
+            rightPos2 += .5;
+            leftPos2 -= .5;
+        } else if (gamepad2.right_bumper) {
+            rightPos2 -= .5;
+            leftPos2 += .5;
+        }
+        if(gamepad2.left_trigger > .2){
             rightPos -= .5;
             leftPos += .5;
-        } else if (gamepad2.left_trigger > .2) {
-            rightPos += .5;
-            leftPos -= .5;
         }
+            else if(gamepad2.left_bumper){
+                    rightPos += .5;
+                    leftPos -=.5;
+
+            }
+
 
 
 
         robot.rightClamp.setPosition(rightPos);
-        robot.rightClamp2.setPosition(rightPos);
-        robot.leftClamp2.setPosition(leftPos);
+        robot.rightClamp2.setPosition(rightPos2);
+        robot.leftClamp2.setPosition(leftPos2);
         robot.leftClamp.setPosition(leftPos);
 
         telemetry.addData("Front Left: ", robot.FL.getPower());
         telemetry.addData("Front Right: ", robot.FR.getPower());
         telemetry.addData("Back Left: ", robot.BL.getPower());
         telemetry.addData("Back Right: ", robot.BR.getPower());
-        telemetry.addData("qwe6y7uojuul234rtyui: ", robot.jewelServo.getPosition());
+        telemetry.addData("qwe6y7uojewel234rtyui: ", robot.jewelServo.getPosition());
         telemetry.addData("Servo L: ", robot.leftClamp.getPosition());
         telemetry.addData("Servo R: ", robot.rightClamp.getPosition());
+        telemetry.addData("Servo L(Upper leverl): ", robot.rightClamp2.getPosition());
+        telemetry.addData("Servo R(UpperLevel): ", robot.rightClamp2.getPosition());
     }
 
     /*
@@ -89,4 +102,4 @@ public class robteleop extends OpMode
     @Override
     public void stop() {
     }
-}}
+}
