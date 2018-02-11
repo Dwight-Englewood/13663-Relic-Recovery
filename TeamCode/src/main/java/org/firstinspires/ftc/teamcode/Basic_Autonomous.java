@@ -93,6 +93,15 @@ public class Basic_Autonomous extends OpMode {
             //FL: fast
             //BR: slower
             //BL: fast
+            case -2:
+                if (runtime.milliseconds() >= 2000) {
+                    robot.drive(MovementEnum.STOP, 0.0);
+                } else {
+                    robot.drive(MovementEnum.RIGHTTURN, 0.2);
+
+                    break;
+
+            /*
             case -1:
                 robot.jewelServo.setPosition(0.8);
                 runtime.reset();
@@ -100,19 +109,27 @@ public class Basic_Autonomous extends OpMode {
                 break;
 
             case 0:
-                if (runtime.milliseconds() > 2000) {
-                    commandNum++;
+             //   telemetry.addData("blue" robot.cSensor.blue());
+
+                if (runtime.milliseconds() > 6000) {
+                 commandNum++;
+
                 } else if (runtime.milliseconds() > 1000) {
-                    if (robot.cSensor.blue() >= 90) {
-                        robot.drive(MovementEnum.BACKWARD, 0.2);
-                        //   commandNum++;
-                    } else if (robot.cSensor.blue() < 90) {
-                        robot.drive(MovementEnum.FORWARD, 0.2);
-                        // commandNum++;
+                    if (robot.cSensor.blue() > robot.cSensor.red()) {
+                        robot.FR.setPower(0.1);
+                        robot.BR.setPower(0.1);
+
+                    } else if (robot.cSensor.blue() < robot.cSensor.red()) {
+                        robot.FR.setPower(-0.1);
+                        robot.BR.setPower(-0.1);
+
                     }
                 }
+                robot.FR.setPower(0.0);
+                robot.BR.setPower(0.0);
                 break;
             case 1:
+
               robot.setDriveMotorModes(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
                 runtime.reset();
                 robot.jewelServo.setPosition(0.3);
@@ -130,7 +147,7 @@ public class Basic_Autonomous extends OpMode {
                     } else {
                         robot.drive(MovementEnum.RIGHTTURN, 0.42);
                     }
-                    /*
+
 
                     if (runtime.milliseconds() >= 2000) {
                         robot.drive(MovementEnum.STOP, 0.0);
