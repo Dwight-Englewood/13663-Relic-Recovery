@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.util.Range;
 
 import org.firstinspires.ftc.teamcode.Enums.MovementEnum;
 
@@ -24,9 +25,10 @@ public class robteleop extends OpMode
     public void init() {
         robot.init(hardwareMap, telemetry);
         robot.setDriveMotorModes(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        robot.cSensor.enableLed(false);
         telemetry.addData("Status", "Initialized");
         robot.lift.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        robot.setDriveZeroPowers(DcMotor.ZeroPowerBehavior.BRAKE);
+      //  robot.setDriveZeroPowers(DcMotor.ZeroPowerBehavior.BRAKE);
     }
 
     /*
@@ -61,25 +63,28 @@ public class robteleop extends OpMode
         }
 
         if (gamepad2.right_trigger > .2) {
-            rightPos2 += .5;
-            leftPos2 -= .5;
+            rightPos2 -= .05;
+            leftPos2 += .05;
         } else if (gamepad2.right_bumper) {
-            rightPos2 -= .5;
-            leftPos2 += .5;
+            rightPos2 += .05;
+            leftPos2 -= .05;
         }
-        if(gamepad2.left_trigger > .2){
-            rightPos -= .5;
-            leftPos += .5;
+        if(gamepad2.left_trigger > .5){
+            rightPos -= .05;
+            leftPos += .05;
         }
             else if(gamepad2.left_bumper){
-                    rightPos += .5;
-                    leftPos -=.5;
+                    rightPos += .05;
+                    leftPos -=.05;
 
             }
 
 
 
-
+        rightPos = Range.clip(rightPos, 0, 1);
+        rightPos2 = Range.clip(rightPos2, 0, 1);
+        leftPos = Range.clip(leftPos, 0, 1);
+        leftPos2 = Range.clip(leftPos2, 0, 1);
         robot.rightClamp.setPosition(rightPos);
         robot.rightClamp2.setPosition(rightPos2);
         robot.leftClamp2.setPosition(leftPos2);

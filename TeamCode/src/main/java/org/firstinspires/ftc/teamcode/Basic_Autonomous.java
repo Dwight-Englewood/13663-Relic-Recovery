@@ -55,7 +55,8 @@ import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackables;
 public class Basic_Autonomous extends OpMode {
     BotTest2 robot = new BotTest2();
     private ElapsedTime runtime = new ElapsedTime();
-    int commandNum = 0;
+    int colour;
+    int commandNum = -1;
 
     @Override
     public void init() {
@@ -76,6 +77,8 @@ public class Basic_Autonomous extends OpMode {
     @Override
     public void start() {
         runtime.reset();
+        robot.jewelServo.setPosition(0.1);
+        robot.cSensor.enableLed(true);
     }
 
     /*
@@ -90,57 +93,68 @@ public class Basic_Autonomous extends OpMode {
             //FL: fast
             //BR: slower
             //BL: fast
-            case 0:
-                robot.setDriveMotorModes(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-                robot.FL.setPower(0.25);
-                robot.BL.setPower(-0.25);
-                robot.FR.setPower(0.25);
-                robot.BR.setPower(-0.25);
-                while (runtime.milliseconds() < 1200){}
-                telemetry.addData("robot Power FL:",robot.FL.getPower() );
-                // telemetry.addData("robot Power FR:",robot.FR.getPower());
-                //telemetry.addData("robot Power BL:",robot.BL.getPower());
-                //telemetry.addData("robot Power BR:",robot.BR.getPower());
-                break;
-        /*
-
             case -1:
-                robot.jewelServo.setPosition(1.0);
-                if(robot.colourSensor.blue() < 2.0){
-                    robot.drive(MovementEnum.FORWARD, 0.2);
-                }
-                else robot.drive(MovementEnum.BACKWARD, 0.2);
+                robot.jewelServo.setPosition(0.8);
+                runtime.reset();
                 commandNum++;
                 break;
+
             case 0:
-                robot.setDriveMotorModes(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-                commandNum++;
+                if (runtime.milliseconds() > 2000) {
+                    commandNum++;
+                } else if (runtime.milliseconds() > 1000) {
+                    if (robot.cSensor.blue() >= 90) {
+                        robot.drive(MovementEnum.BACKWARD, 0.2);
+                        //   commandNum++;
+                    } else if (robot.cSensor.blue() < 90) {
+                        robot.drive(MovementEnum.FORWARD, 0.2);
+                        // commandNum++;
+                    }
+                }
                 break;
             case 1:
-                robot.FL.setTargetPosition(10);
-                robot.FR.setTargetPosition(10);
-                robot.BR.setTargetPosition(10);
-                robot.BL.setTargetPosition(10);
-                //robot.distanceToRevs(2.)
-                if(robot.FL.getTargetPosition() != 10){commandNum--;}
-                else commandNum++;
+              robot.setDriveMotorModes(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+                runtime.reset();
+                robot.jewelServo.setPosition(0.3);
+             commandNum++;
                 break;
+
             case 2:
-                robot.setDriveMotorModes(DcMotor.RunMode.RUN_TO_POSITION);
-                robot.BR.setPower(0.75);
-                robot.FR.setPower(0.75);
-                robot.BL.setPower(0.75);
-                robot.FL.setPower(0.75);
+                robot.setDriveMotorModes(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+                robot.jewelServo.setPosition(0.1);
+                if(robot.jewelServo.getPosition() > 0.3) commandNum--;
 
-                telemetry.addData("Target Encoder Position: ", robot.FL.getTargetPosition());
-                telemetry.addData("Power to wheels:", robot.FL.getPower());
-                telemetry.update();
+                else {
+                    if (runtime.milliseconds() >= 2000) {
+                        robot.drive(MovementEnum.STOP, 0.0);
+                    } else {
+                        robot.drive(MovementEnum.RIGHTTURN, 0.42);
+                    }
+                    /*
+
+                    if (runtime.milliseconds() >= 2000) {
+                        robot.drive(MovementEnum.STOP, 0.0);
+                    } else {
+                        robot.drive(MovementEnum.RIGHTTURN, 0.2);
+                     */
+                }
+                telemetry.addData("Target Posisition: ", robot.FR.getTargetPosition());
+                telemetry.addData("robot Power FL:", robot.FL.getPower());
+                telemetry.addData("robot Power FR:", robot.FR.getPower());
+                telemetry.addData("robot Power BL:", robot.BL.getPower());
+                telemetry.addData("robot Power BR:", robot.BR.getPower());
+                telemetry.addData("jewelServo", robot.jewelServo.getPosition());
                 break;
-
-*/
-
         }
-    }
+        telemetry.addData("Target Posisition: ", robot.FR.getTargetPosition());
+        telemetry.addData("robot Power FL:", robot.FL.getPower());
+        telemetry.addData("robot Power FR:", robot.FR.getPower());
+        telemetry.addData("robot Power BL:", robot.BL.getPower());
+        telemetry.addData("robot Power BR:", robot.BR.getPower());
+        telemetry.addData("jewelServo", robot.jewelServo.getPosition());
+        telemetry.addData("colour", robot.cSensor.blue());
+        }
+
 
     /*
      * Code to run ONCE after the driver hits STOP
